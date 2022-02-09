@@ -23,6 +23,7 @@ button {
   background-color: yellow;
   border: none;
   transition: 0.3s all;
+  cursor: pointer;
 }
 
 .blue {
