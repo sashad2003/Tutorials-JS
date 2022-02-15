@@ -160,7 +160,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
         render() {
             const element = document.createElement('div');
-            this.classes.forEach(className => element.classList.add(className));
+          
+        //   Проверка на наличие главного класса. Если его нет, подставляем сами
+            if (this.classes.length === 0) {
+                this.element = 'menu__item';
+                element.classList.add(this.element);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
+
+
             element.innerHTML = `
                 <img src=${this.src} alt=${this.alt}>
                 <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -182,7 +191,8 @@ window.addEventListener('DOMContentLoaded', () => {
         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
         9,
         '.menu .container',
-        'menu__item'
+        'menu__item',
+        'big'
 
     ).render();
 
@@ -194,8 +204,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
         10,
         '.menu .container',
-        'menu__item',
-        'big'
+        'menu__item'
 
     ).render();
 
