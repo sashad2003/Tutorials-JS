@@ -719,6 +719,10 @@ a {
     display: block;
 }
 
+.overflow-hidden{
+    overflow: hidden;
+}
+
 .hide {
     display: none;
 }

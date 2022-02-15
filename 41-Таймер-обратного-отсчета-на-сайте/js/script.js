@@ -42,12 +42,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const dedLine = '2022-05-07';
+    const dedLine = '2022-05-07 08:30';
 
     function getTimeRemaining(endTime) {
         const t = Date.parse(endTime) - Date.parse(new Date()),
             days = Math.floor(t / (1000 * 60 * 60 * 24)),
-            hours = Math.floor((t / 1000 * 60 * 60) % 24),
+            hours = Math.floor( (t/(1000*60*60) % 24) ),
             minutes = Math.floor((t / 1000 / 60) % 60),
             seconds = Math.floor((t / 1000) % 60);
 
@@ -93,4 +93,50 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', dedLine);
+
+
+    // Modal
+
+    const modalButton = document.querySelectorAll('[data-modal]');
+    const modal = document.querySelector('.modal');
+    const modalCloseButton = document.querySelector('[data-close]');
+
+    function modalToggle() {
+        modal.classList.toggle('show');
+        document.body.classList.toggle('overflow-hidden');
+        clearInterval(modalTimerId);
+    }
+
+    modalButton.forEach((button) => {
+        button.addEventListener('click', modalToggle);
+    })
+
+    modalCloseButton.addEventListener('click', modalToggle);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            console.log('Modal clicked');
+            modalToggle();
+        }
+    })
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) {
+            modalToggle('Escape');
+        }
+    });
+
+
+    function showModalByScroll() {
+        if (window.scrollY + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            modalToggle();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+
+
+    const modalTimerId = setTimeout(modalToggle, 6000);
+
+    window.addEventListener('scroll', showModalByScroll);
+
 })
